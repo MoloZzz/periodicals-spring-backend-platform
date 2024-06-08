@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
+import periodicals.dto.PublicationDto;
 import periodicals.model.Publication;
 import periodicals.repository.PublicationRepository;
 
@@ -17,11 +18,16 @@ public class PublicationService {
         this.publicationRepository = publicationRepository;
     }
 
-    public Publication savePublication(Publication publication) {
-        return publicationRepository.save(publication);
+    public Publication createPublication(PublicationDto publication) {
+        Publication newPublication = new Publication();
+        newPublication.setTitle(publication.getTitle());
+        newPublication.setDescription(publication.getDescription());
+        newPublication.setPrice(publication.getPrice());
+        newPublication.setIssueFrequency(publication.getIssueFrequency());
+        return publicationRepository.save(newPublication);
     }
 
-    public Publication updatePublication(Long id, Publication publication) {
+    public Publication updatePublication(Long id, PublicationDto publication) {
         Publication existingPublication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Publication not found"));
         existingPublication.setTitle(publication.getTitle());

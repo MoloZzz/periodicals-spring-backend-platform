@@ -3,6 +3,7 @@ package periodicals.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import periodicals.dto.PublicationDto;
 import periodicals.model.Publication;
 import periodicals.service.PublicationService;
 
@@ -15,14 +16,14 @@ public class PublicationController {
     private PublicationService publicationService;
 
     @PostMapping
-    public ResponseEntity<Publication> createPublication(@RequestBody Publication publication) {
-        Publication savedPublication = publicationService.savePublication(publication);
+    public ResponseEntity<Publication> createPublication(@RequestBody PublicationDto publicationDto) {
+        Publication savedPublication = publicationService.createPublication(publicationDto);
         return ResponseEntity.ok(savedPublication);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Publication> updatePublication(@PathVariable Long id, @RequestBody Publication publication) {
-        Publication updatedPublication = publicationService.updatePublication(id, publication);
+    public ResponseEntity<Publication> updatePublication(@PathVariable Long id, @RequestBody PublicationDto publicationDto) {
+        Publication updatedPublication = publicationService.updatePublication(id, publicationDto);
         return ResponseEntity.ok(updatedPublication);
     }
 
