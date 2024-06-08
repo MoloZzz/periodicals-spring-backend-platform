@@ -14,7 +14,18 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://your-auth0-domain/.well-known/openid-configuration
+          issuer-uri: http://localhost:8080/realms/periodicals-realm
+      client:
+        registration:
+          keycloak:
+            client-id: periodicals-client
+            client-secret: vEiA1WDVtLUoAfR0UbIpzLt5RyyyP0zA
+            scope: openid, profile, email
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/periodicals-realm
 
 
 liquibase:

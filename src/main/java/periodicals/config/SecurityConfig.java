@@ -28,7 +28,7 @@ public class SecurityConfig {
     }
     @Bean
     public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri("https://your-auth0-domain/.well-known/jwks.json").build();
+        return NimbusJwtDecoder.withJwkSetUri("https://dev-h6cfytovj4u2njuv.us.auth0.com/.well-known/jwks.json").build();
     }
 }
 
