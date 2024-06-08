@@ -1,0 +1,130 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: author
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: publications
+            columns:
+              - column:
+                  name: publication_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: price
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: issue_frequency
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: subscriptions
+            columns:
+              - column:
+                  name: subscription_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_subscription
+                    references: users(user_id)
+              - column:
+                  name: publication_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_publication_subscription
+                    references: publications(publication_id)
+              - column:
+                  name: start_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: payments
+            columns:
+              - column:
+                  name: payment_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: subscription_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_subscription_payment
+                    references: subscriptions(subscription_id)
+              - column:
+                  name: amount
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_method
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
